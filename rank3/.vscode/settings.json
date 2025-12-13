@@ -1,9 +1,0 @@
-{
-	"files.associations": {
-		"*.embeddedhtml": "html",
-		"minishell.h": "c",
-		"tokenizing.h": "c",
-		"limits.h": "c",
-		"parsing.h": "c"
-	}
-}

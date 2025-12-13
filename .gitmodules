@@ -1,0 +1,3 @@
+[submodule "rank5/ft_irc"]
+	path = rank5/ft_irc
+	url = https://github.com/ihashirr/IRC.git
