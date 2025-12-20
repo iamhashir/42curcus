@@ -72,6 +72,10 @@ const char *AForm::GradeTooLowException::what() const throw()
 {
     return "AForm grade too low";
 }
+const char *AForm::NotSignedException::what() const throw()
+{
+    return "AForm not signed";
+}
 // ================== STREAM OPERATOR ==================
 
 std::ostream &operator<<(std::ostream &os, const AForm &AForm)

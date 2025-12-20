@@ -25,7 +25,7 @@ int main()
         AForm *shrub = intern.makeForm("shrubbery creation", "home");
         AForm *robot = intern.makeForm("robotomy request", "Bender");
         AForm *pardon = intern.makeForm("presidential pardon", "Arthur Dent");
-        AForm *shrub1 = intern.makeForm("presidential pardon", "Arthur Dent");
+        AForm *shrub1 = intern.makeForm("shrubbery creation", "home");
 
         std::cout << "\033[32m===========EXECUTE UNSIGNED FORMS===========\033[0m" << std::endl;
 
@@ -62,6 +62,7 @@ int main()
         delete shrub;
         delete robot;
         delete pardon;
+        delete shrub1;
     }
     catch (std::exception &e)
     {

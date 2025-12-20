@@ -34,6 +34,10 @@ class AForm {
             public:
                 const char *what() const throw();
         };
+        class NotSignedException : public std::exception {
+            public:
+                const char *what() const throw();
+        };            
     protected:
         virtual void executeAction() const = 0;
     private:
