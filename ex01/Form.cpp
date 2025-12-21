@@ -2,6 +2,7 @@
 #include "Bureaucrat.hpp"
 
 // ================== CONSTRUCTORS ==================
+Form::Form():_name("etc"),_isSigned(false),_gradeToSign(100),_gradeToExecute(150){}
 Form::Form(const std::string &name, int gradeToSign, int gradeToExecute):_name(name),_isSigned(false),_gradeToSign(gradeToSign),_gradeToExecute(gradeToExecute){
     if(gradeToSign < 1 || gradeToExecute <1)
         throw Form::GradeTooHighException();

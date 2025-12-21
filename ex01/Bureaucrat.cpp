@@ -18,7 +18,7 @@ Bureaucrat & Bureaucrat::operator=(const Bureaucrat&other){
     
     return *this;
 }
-
+Bureaucrat::~Bureaucrat(){}
 void Bureaucrat::signForm(Form &form) const
 {
     try

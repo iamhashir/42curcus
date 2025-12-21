@@ -2,6 +2,7 @@
 #include "Bureaucrat.hpp"
 
 // ================== CONSTRUCTORS ==================
+AForm::AForm():_name("etc"),_isSigned(false),_gradeToSign(100),_gradeToExecute(150){}
 AForm::AForm(const std::string &name, int gradeToSign, int gradeToExecute):_name(name),_isSigned(false),_gradeToSign(gradeToSign),_gradeToExecute(gradeToExecute){
     if(gradeToSign < 1 || gradeToExecute <1)
         throw AForm::GradeTooHighException();
@@ -54,7 +55,7 @@ void AForm::beSigned(const Bureaucrat &bureaucrat){
 void AForm::execute(Bureaucrat const & executor) const
 {
     if (!this->_isSigned)
-        throw AForm::GradeTooLowException();
+        throw AForm::NotSignedException();
 
     if (executor.getGrade() > this->_gradeToExecute)
         throw AForm::GradeTooLowException();

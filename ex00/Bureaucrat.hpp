@@ -10,6 +10,7 @@ class Bureaucrat{
         Bureaucrat(const std::string &,int);
         Bureaucrat(const Bureaucrat &);
         Bureaucrat &operator=(const Bureaucrat&);
+        ~Bureaucrat();
 
         class GradeTooHighException: public std::exception{
             public: const char *what()const throw();
