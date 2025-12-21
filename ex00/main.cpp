@@ -3,7 +3,7 @@
 
 int main()
 {
-    std::cout << "========== DEFAULT CONSTRUCTOR ==========" << std::endl;
+    std::cout << "\033[31m========== DEFAULT CONSTRUCTOR ==========\033[0m" << std::endl;
     try
     {
         Bureaucrat def;
@@ -14,7 +14,7 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    std::cout << "\n========== VALID CONSTRUCTION ==========" << std::endl;
+    std::cout << "\n\033[32m========== VALID CONSTRUCTION ==========\033[0m" << std::endl;
     try
     {
         Bureaucrat high("High", 1);
@@ -30,7 +30,7 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    std::cout << "\n========== COPY CONSTRUCTOR ==========" << std::endl;
+    std::cout << "\n\033[33m========== COPY CONSTRUCTOR ==========\033[0m" << std::endl;
     try
     {
         Bureaucrat original("Original", 42);
@@ -44,7 +44,7 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    std::cout << "\n========== COPY ASSIGNMENT ==========" << std::endl;
+    std::cout << "\n\033[34m========== COPY ASSIGNMENT ==========\033[0m" << std::endl;
     try
     {
         Bureaucrat a("A", 10);
@@ -62,7 +62,7 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    std::cout << "\n========== INCREMENT / DECREMENT ==========" << std::endl;
+    std::cout << "\n\033[31m========== INCREMENT / DECREMENT ==========\033[0m" << std::endl;
     try
     {
         Bureaucrat b("Worker", 50);
@@ -78,7 +78,7 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    std::cout << "\n========== INCREMENT TOO HIGH ==========" << std::endl;
+    std::cout << "\n\033[32m========== INCREMENT TOO HIGH ==========\033[0m" << std::endl;
     try
     {
         Bureaucrat top("Top", 1);
@@ -89,7 +89,7 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    std::cout << "\n========== DECREMENT TOO LOW ==========" << std::endl;
+    std::cout << "\n\033[33m========== DECREMENT TOO LOW ==========\033[0m" << std::endl;
     try
     {
         Bureaucrat bottom("Bottom", 150);
@@ -100,7 +100,7 @@ int main()
         std::cout << e.what() << std::endl;
     }
 
-    std::cout << "\n========== INVALID CONSTRUCTION ==========" << std::endl;
+    std::cout << "\n\033[34m========== INVALID CONSTRUCTION ==========\033[0m" << std::endl;
     try
     {
         Bureaucrat bad1("BadHigh", 0);
