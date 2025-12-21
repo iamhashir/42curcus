@@ -10,6 +10,7 @@ class Bureaucrat;
 class AForm {
     public:
     // Canonical
+        AForm();
         AForm(const std::string &name, int gradeToSign, int gradeToExecute);
         AForm(const AForm &other);
         AForm &operator=(const AForm &other);
@@ -41,7 +42,7 @@ class AForm {
     protected:
         virtual void executeAction() const = 0;
     private:
-        AForm();
+        
         const std::string _name;
         bool _isSigned;
         const int _gradeToSign;

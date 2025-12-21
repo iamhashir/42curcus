@@ -22,10 +22,16 @@ int main()
 
         Intern intern;
 
-        AForm *shrub = intern.makeForm("shrubbery creation", "home");
-        AForm *robot = intern.makeForm("robotomy request", "Bender");
+        AForm *shrub  = intern.makeForm("shrubbery creation", "home");
+        AForm *robot  = intern.makeForm("robotomy request", "Bender");
         AForm *pardon = intern.makeForm("presidential pardon", "Arthur Dent");
         AForm *shrub1 = intern.makeForm("shrubbery creation", "home");
+
+        std::cout << "\033[31m===========INTERN FAILURE PATH===========\033[0m" << std::endl;
+
+        AForm *invalid = intern.makeForm("coffee request", "Nobody");
+        if (!invalid)
+            std::cout << "Invalid form correctly not created" << std::endl;
 
         std::cout << "\033[32m===========EXECUTE UNSIGNED FORMS===========\033[0m" << std::endl;
 
@@ -63,6 +69,7 @@ int main()
         delete robot;
         delete pardon;
         delete shrub1;
+        delete invalid; // safe: deleting NULL is allowed
     }
     catch (std::exception &e)
     {

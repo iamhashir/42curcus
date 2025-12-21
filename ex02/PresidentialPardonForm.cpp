@@ -10,8 +10,10 @@ PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &oth
 PresidentialPardonForm &
 PresidentialPardonForm::operator=(const PresidentialPardonForm &other)
 {
-    if (this != &other)
+    if (this != &other) {
+        AForm::operator=(other);
         _target = other._target;
+    }
     return *this;
 }
 

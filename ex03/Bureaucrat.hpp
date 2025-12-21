@@ -11,7 +11,7 @@ class Bureaucrat{
         Bureaucrat(const std::string &,int);
         Bureaucrat(const Bureaucrat &);
         Bureaucrat &operator=(const Bureaucrat&);
-
+        ~Bureaucrat();
         void signForm(AForm &form) const;
         void executeForm(AForm const & form) const;
         
