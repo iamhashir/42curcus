@@ -1,0 +1,1 @@
+ ls *.cpp *.hpp | entr -c sh -c "make -s re && ./bureaucrat"

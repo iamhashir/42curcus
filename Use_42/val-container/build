@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#repo path
+buildPath=$(which build)
+if [ ! $? -eq 0 ]; then
+	echo "build command not in path, run install first"
+	exit 1
+fi
+repoPath="${buildPath%/*}"
+docker build $repoPath -t valgrind
