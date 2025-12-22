@@ -1,0 +1,228 @@
+body {
+	background: linear-gradient(160deg, rgb(21, 40, 70) 0%, rgb(8, 18, 35) 100%);
+  }
+  
+header  {
+	background: rgb(12, 23, 52);
+}
+
+/* List markers */
+.markdown li::marker {
+	font-weight: 800;
+	content: "👉 ";
+}
+
+/* Headings rhythm */
+.markdown h2 {
+	margin-top: 1.6em;
+	border-bottom: 1px solid rgba(0, 0, 0, .08);
+	padding-bottom: .2em;
+}
+
+/* Code blocks */
+pre {
+	border-radius: 10px;
+}
+
+/* Optional: dark tweaks */
+:root {
+	--text-secondary: #8aa0b4;
+}
+
+.dark {
+	/* background: rgb(19, 40, 103); */
+}
+
+#stage-sidebar-tiny-bar {
+	background: rgb(9, 19, 52);
+}
+
+.text-token-text-secondary , #thread-bottom-container,#thread-bottom{
+	background: rgb(12, 23, 52);
+}
+#thread-bottom-container{
+	margin-bottom: 0;
+}
+#thread-bottom-container, #thread-bottom {
+	background: rgb(18, 32, 70);
+	box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+}
+header,
+nav > aside, #history, #sidebar-header, .px-2, .bottom-0, nav, div.relative.flex.w-full.flex-auto.flex-col {
+  background: rgb(15, 28, 60);
+  border-right: 3px solid rgba(167, 133, 255, 0.388);
+}
+/* The container near the bottom of the thread in your shot */
+
+
+
+
+
+
+
+:root[data-hashir-skin="1"] {
+	--page-bg: #0b1423;
+	--page-bg-alt: #13213a;
+	--page-radial: #152846;
+  
+	--surface-1: #0f1c33;
+	--surface-2: #132344;
+	--surface-3: #182c58;
+  
+	--text-primary: #e7edf6;
+	--text-secondary: #a7b7cf;
+	--text-dim: #8aa0b4;
+  
+	--accent: #7aa2ff;
+	--accent-soft: #97d0ff;
+	--accent-ink: #100034;
+  
+	--border-subtle: color-mix(in srgb, var(--accent-ink) 18%, transparent);
+	--border-strong: color-mix(in srgb, var(--accent-ink) 30%, transparent);
+  
+	--radius-lg: 16px;
+	--radius-md: 12px;
+	--radius-sm: 10px;
+  
+	--shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.25);
+	--shadow-lift: 0 0 0 1px color-mix(in srgb, var(--accent-ink) 55%, transparent), 0 8px 24px rgba(0, 0, 0, 0.35);
+  
+	--gradient-page: radial-gradient(1200px 700px at 35% -10%, var(--page-radial) 0%, var(--page-bg) 55%) fixed, linear-gradient(160deg, var(--page-bg-alt) 0%, var(--page-bg) 100%) fixed;
+  
+	--code-bg: color-mix(in srgb, var(--surface-2) 92%, transparent);
+	--code-text: #d9e6ff;
+	--link: #ffffff;
+	--list-marker: "🤓 ";
+  }
+  
+  /* Page + typography */
+  html[data-hashir-skin="1"],
+  html[data-hashir-skin="1"] body {
+	background: var(--gradient-page) !important;
+	color: var(--text-primary) !important;
+  }
+  
+  html[data-hashir-skin="1"] a {
+	color: var(--link);
+	transition: color .2s ease, text-shadow .2s ease;
+  }
+  
+  html[data-hashir-skin="1"] a:hover {
+	color: var(--accent-soft);
+	text-shadow: 0 0 10px color-mix(in srgb, var(--accent-soft) 55%, transparent);
+  }
+  
+  /* Header + sidebar */
+  html[data-hashir-skin="1"] header {
+	background: var(--surface-1) !important;
+	border-bottom: 1px solid var(--border-subtle);
+	box-shadow: var(--shadow-soft);
+  }
+  
+  html[data-hashir-skin="1"] nav[role="navigation"],
+  html[data-hashir-skin="1"] nav[role="navigation"] > aside,
+  html[data-hashir-skin="1"] #sidebar-header,
+  html[data-hashir-skin="1"] #history {
+	background: var(--surface-1) !important;
+	color: var(--text-secondary) !important;
+  }
+  
+  html[data-hashir-skin="1"] nav[role="navigation"] .px-2,
+  html[data-hashir-skin="1"] nav[role="navigation"] .bottom-0,
+  html[data-hashir-skin="1"] nav[role="navigation"] .flex {
+	/* background: var(--surface-1) !important; */
+  }
+  
+  html[data-hashir-skin="1"] #stage-sidebar-tiny-bar {
+	background: var(--surface-1) !important;
+  }
+  
+  html[data-hashir-skin="1"] #sidebar-header > a {
+	transition: transform .25s ease, background .25s ease;
+	border-radius: var(--radius-sm);
+  }
+  
+  html[data-hashir-skin="1"] #sidebar-header > a:hover {
+	transform: scale(1.06);
+	background: var(--surface-2);
+  }
+  
+  /* Conversation canvas */
+  html[data-hashir-skin="1"] main,
+  html[data-hashir-skin="1"] .prose,
+  html[data-hashir-skin="1"] .markdown {
+	background: transparent !important;
+	color: var(--text-primary) !important;
+  }
+  
+  html[data-hashir-skin="1"] div[data-message-author-role] {
+	background: color-mix(in srgb, var(--surface-2) 88%, transparent);
+	border: 1px solid var(--border-subtle);
+	box-shadow: var(--shadow-soft);
+	border-radius: var(--radius-lg);
+	padding: 14px 16px;
+	color: var(--text-primary);
+  }
+  
+  html[data-hashir-skin="1"] .bg-token-bg-primary {
+	background: var(--surface-2) !important;
+  }
+  
+  /* Composer */
+  html[data-hashir-skin="1"] #thread-bottom-container,
+  html[data-hashir-skin="1"] #thread-bottom {
+	background: var(--surface-1) !important;
+	border-top: 1px solid var(--border-strong);
+	box-shadow: var(--shadow-lift);
+  }
+  
+  html[data-hashir-skin="1"] #thread-bottom-container > div {
+	background: var(--surface-2);
+	padding-top: 10px;
+  }
+  
+  html[data-hashir-skin="1"] #thread-bottom-container textarea,
+  html[data-hashir-skin="1"] #thread-bottom-container input {
+	background: var(--surface-3) !important;
+	color: var(--text-primary) !important;
+	border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent) !important;
+	border-radius: var(--radius-md) !important;
+  }
+  
+  html[data-hashir-skin="1"] #thread-bottom-container textarea:focus,
+  html[data-hashir-skin="1"] #thread-bottom-container input:focus {
+	outline: none !important;
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 50%, transparent);
+  }
+  
+  /* Typography + content */
+  html[data-hashir-skin="1"] .text-token-text-secondary {
+	color: var(--text-secondary) !important;
+  }
+  
+  html[data-hashir-skin="1"] .markdown h2 {
+	color: var(--text-primary);
+	margin-top: 1.6em;
+	padding-bottom: .25em;
+	border-bottom: 1px solid var(--border-strong);
+	text-shadow: 0 0 6px color-mix(in srgb, var(--accent) 35%, transparent);
+  }
+  
+  html[data-hashir-skin="1"] .markdown ul li::marker {
+	content: var(--list-marker);
+	font-weight: 800;
+	color: var(--accent-soft);
+  }
+  
+  /* Code blocks */
+  html[data-hashir-skin="1"] pre {
+	background: var(--code-bg) !important;
+	border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent) !important;
+	border-radius: var(--radius-md) !important;
+	box-shadow: var(--shadow-soft);
+  }
+  
+  html[data-hashir-skin="1"] code {
+	color: var(--code-text);
+  }
+  

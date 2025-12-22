@@ -1,0 +1,14 @@
+{
+	"manifest_version": 3,
+	"name": "ChatGPT Skin — Hashir",
+	"version": "1.0.0",
+	"description": "Always-on CSS/JS tweaks for chat.openai.com maaaz wants to build",
+	"content_scripts": [
+	  {
+		"matches": ["https://chat.openai.com/*","https://chatgpt.com/*"],
+		"css": ["purple.css"],
+		"js": ["inject.js"],
+		"run_at": "document_end"
+	  }
+	]
+}
