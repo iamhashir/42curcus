@@ -8,12 +8,13 @@ void swap(T &a, T &b){
 	b = temp;
 }
 template <typename U>
-const U &min(const U &a,const U &b){
-	return (a < b ? a : b);
+const U &min(const U &a, const U &b){
+    return (b < a ? b : a);
 }
 
 template <typename V>
-const V &max(const V &a,const V &b){
-	return (a > b ? a : b);
+const V &max(const V &a, const V &b){
+    return (b > a ? b : a);
 }
+
 #endif

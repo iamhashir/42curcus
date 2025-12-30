@@ -2,6 +2,7 @@
 #define ARRAY_HPP
 
 #include <cstddef>
+#include <cstdlib>
 #include <exception>
 
 template <typename T> class Array{
