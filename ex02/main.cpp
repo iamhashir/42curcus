@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 
+
 void merge(std::vector<int> &a, int l, int m, int r)
 {
 	std::vector<int> left(a.begin() + l, a.begin() + m + 1);
