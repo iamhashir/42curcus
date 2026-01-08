@@ -28,30 +28,23 @@ BitcoinExchange::~BitcoinExchange() {}
 
 bool BitcoinExchange::isValidDate(const std::string &date)
 {
-	if (date.length() != 10)
+	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
 		return false;
-	if (date[4] != '-' || date[7] != '-')
-		return false;
-	for (size_t i = 0; i < date.length(); ++i)
-	{
-		if (i == 4 || i == 7)
-			continue;
-		if (date[i] < '0' || date[i] > '9')
-			return false;
-	}
-	int year = (date[0] - '0') * 1000 + (date[1] - '0') * 100 + (date[2] - '0') * 10 + (date[3] - '0');
-	int month = (date[5] - '0') * 10 + (date[6] - '0');
-	int day = (date[8] - '0') * 10 + (date[9] - '0');
+
+	int year = std::stoi(date.substr(0, 4));
+	int month = std::stoi(date.substr(5, 2));
+	int day = std::stoi(date.substr(8, 2));
+
 	if (month < 1 || month > 12)
 		return false;
-	static const int kDaysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-	int maxDay = kDaysInMonth[month - 1];
-	bool isLeap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
-	if (month == 2 && isLeap)
+
+	static const int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	int maxDay = daysInMonth[month - 1];
+
+	if (month == 2 && (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)))
 		maxDay = 29;
-	if (day < 1 || day > maxDay)
-		return false;
-	return true;
+
+	return (day >= 1 && day <= maxDay);
 }
 
 void BitcoinExchange::loadDatabase(const std::string &filename) // load csv fill map
@@ -70,8 +63,8 @@ void BitcoinExchange::loadDatabase(const std::string &filename) // load csv fill
 		std::string rateStr;
 		if (!std::getline(stream, date, ','))
 			continue;
-		if (!isValidDate(date) || date < "2009-01-03"){std::cout<<"invalid date\n";
-			continue;}
+		if (!isValidDate(date) || date < "2009-01-03")
+			continue;
 		if (!std::getline(stream, rateStr))
 			continue;
 		double rate;
@@ -79,8 +72,8 @@ void BitcoinExchange::loadDatabase(const std::string &filename) // load csv fill
 
 		if (!(rateStream >> rate) || !rateStream.eof()) // does all conversion from string to double and checks if line has anything left
 			continue;
-		if (rate <= 0 || rate > 119324)
-    		continue;
+		if (rate < 0 || rate > 119324)
+			continue;
 		_rates[date] = rate; // insert the rate in map on that date
 	}
 }
