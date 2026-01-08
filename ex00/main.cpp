@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 			std::cout << "\033[31mError: bad input => \033[0m" << line << std::endl;
 			continue;
 		}
-		
+
 		char *end;
 		double value = std::strtod(valueStr.c_str(), &end);
 
@@ -67,14 +67,9 @@ int main(int argc, char **argv)
 			std::cout << "\033[31mError: bad input => \033[0m" << line << std::endl;
 			continue;
 		}
-		if (value < 0)
+		if (value < 0 || value > 1000)
 		{
-			std::cout << "\033[31mError: not a positive number.\033[0m" << std::endl;
-			continue;
-		}
-		if (value > 1000)
-		{
-			std::cout << "\033[31mError: too large a number.\033[0m" << std::endl;
+			std::cout << "\033[31mError: bad value => \033[0m" << line << std::endl;
 			continue;
 		}
 		try

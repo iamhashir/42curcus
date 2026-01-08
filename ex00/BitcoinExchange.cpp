@@ -46,7 +46,9 @@ bool BitcoinExchange::isValidDate(const std::string &date)
 
 	return (day >= 1 && day <= maxDay);
 }
-
+bool BitcoinExchange::isValidRate(double rate) {
+    return rate >= 0 && rate <= 119324;
+}
 void BitcoinExchange::loadDatabase(const std::string &filename) // load csv fill map
 {
 	std::ifstream file(filename.c_str());
@@ -63,17 +65,24 @@ void BitcoinExchange::loadDatabase(const std::string &filename) // load csv fill
 		std::string rateStr;
 		if (!std::getline(stream, date, ','))
 			continue;
-		if (!isValidDate(date) || date < "2009-01-03")
+		if (!isValidDate(date))
+		{
+			std::cerr << "\033[31mError: Invalid date or range for date: \033[0m" << date << std::endl;
 			continue;
+		}
 		if (!std::getline(stream, rateStr))
+		{
+			std::cerr << "\033[31mError: Missing rate value for date: \033[0m" << date << std::endl;
 			continue;
+		}
 		double rate;
 		std::stringstream rateStream(rateStr);
 
-		if (!(rateStream >> rate) || !rateStream.eof()) // does all conversion from string to double and checks if line has anything left
+		if (!(rateStream >> rate) || !rateStream.eof() || !isValidRate(rate)) // does all conversion from string to double and checks if line has anything left
+		{
+			std::cerr << "\033[31mError: Invalid rate value for date: \033[0m" << date << std::endl;
 			continue;
-		if (rate < 0 || rate > 119324)
-			continue;
+		}
 		_rates[date] = rate; // insert the rate in map on that date
 	}
 }

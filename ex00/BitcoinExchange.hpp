@@ -25,7 +25,7 @@ public:
     void loadDatabase(const std::string &filename);
     double getRateForDate(const std::string &date) const;
 	bool isValidDate(const std::string &date);
-
+	bool isValidRate(double rate);
 
 private:
     std::map<std::string, double> _rates;
