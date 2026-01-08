@@ -20,15 +20,25 @@ RPN::~RPN() {}
 
 void RPN::evaluate(const std::string &expression)
 {
+	while (!operands.empty())
+		operands.pop();
 	std::stringstream ss(expression);
 	std::string token;
-	
-	// tokenize by spaces
+
+	// tokenize by spaces into meaningfull pieces
 	while (ss >> token)
 	{
 		if (isValidNumber(token))
 		{
-			operands.push(atoi(token.c_str()));
+			int value = atoi(token.c_str());
+
+			if (value > 10 || value < -10)
+			{
+				printError("Error: number out of range.");
+				return;
+			}
+
+			operands.push(value);
 		}
 		else if (token == "+" || token == "-" || token == "*" || token == "/")
 		{
@@ -41,7 +51,7 @@ void RPN::evaluate(const std::string &expression)
 		}
 		else
 		{
-			printError("Error: invalid token.");
+			printError("Error");
 			return;
 		}
 	}
@@ -55,11 +65,12 @@ void RPN::evaluate(const std::string &expression)
 		printError("Error: too many operands.");
 	}
 }
-     
+
 void RPN::processOperator(char op)
 {
-	int b = operands.top();
-	operands.pop();
+
+	int b = operands.top(); // get top elements of stack
+	operands.pop();			// remove it
 	int a = operands.top();
 	operands.pop();
 
@@ -93,13 +104,23 @@ void RPN::processOperator(char op)
 
 bool RPN::isValidNumber(const std::string &str) const
 {
-	for (size_t i = 0; i < str.length(); ++i)
+	if (str.empty())
+		return false;
+
+	if (str == "-")
+		return false;
+
+	size_t i = 0;
+	if (str[0] == '-')
+		i = 1;
+
+	if (i == str.length())
+		return false;
+
+	for (; i < str.length(); ++i)
 	{
-		char c = str[i];
-		if (!isdigit(c) && (i != 0 || c != '-'))
-		{
+		if (!isdigit(str[i]))
 			return false;
-		}
 	}
 	return true;
 }
