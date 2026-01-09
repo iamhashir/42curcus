@@ -47,15 +47,3 @@ int main()
 	std::cout << std::endl;
 }
 
-// int main()
-// {
-// 	std::pair<std::string, int> pairs = std::make_pair("hashir",20);
-
-// 	std::vector<int> v;
-// 	v.push_back(1);
-// 	v.push_back(2);
-// 	v.push_back(3);
-
-// 	std::cout<<pairs.second;
-// 	return 0;
-// }

@@ -13,11 +13,21 @@ static long long now()
 	gettimeofday(&tv, 0);
 	return (long long)tv.tv_sec * 1000000 + tv.tv_usec;
 }
-static void bin(std::vector<int> &c, int v) {
-	c.insert(std::lower_bound(c.begin(), c.end(), v), v); 
+static void bin(std::deque<int> &c, int v)
+{
+	c.insert(std::lower_bound(c.begin(), c.end(), v), v);
 }
-static void bin(std::deque<int> &c, int v) {
-	 c.insert(std::lower_bound(c.begin(), c.end(), v), v); 
+// binary search finds number n less than or equal to v and returns iterator of that number
+static void bin(std::vector<int> &c, int v)
+{
+	c.insert(std::lower_bound(c.begin(), c.end(), v), v);
+}
+static void binBounded(std::vector<int> &c, int v, int winner)
+{
+	std::vector<int>::iterator end =
+		std::lower_bound(c.begin(), c.end(), winner);
+
+	c.insert(std::lower_bound(c.begin(), end, v), v);
 }
 
 static std::vector<std::size_t> jacobsthalInsertionOrder(std::size_t pendingCount)
@@ -26,19 +36,19 @@ static std::vector<std::size_t> jacobsthalInsertionOrder(std::size_t pendingCoun
 	if (pendingCount <= 1)
 		return order;
 
-	std::size_t prev = 1;
-	std::size_t curr = 1;
+	std::size_t beforePrev = 1; // j(n-2)
+	std::size_t prev = 1;		// j(n-1)
 
-	while (curr < pendingCount)
+	while (prev < pendingCount)
 	{
-		std::size_t next = curr + 2 * prev;
+		std::size_t next = prev + 2 * beforePrev;
 		std::size_t limit = next < pendingCount ? next : pendingCount;
 
-		for (std::size_t i = limit; i > curr; --i)
+		for (std::size_t i = limit; i > prev; --i)
 			order.push_back(i - 1);
 
-		prev = curr;
-		curr = next;
+		beforePrev = prev;
+		prev = next;
 	}
 	return order;
 }
@@ -62,11 +72,10 @@ static std::vector<int> fordJohnsonSort(const std::vector<int> &input)
 		}
 
 		int larger = input[i];
-		int smaller = input[i + 1]; //2nd element of pair added
+		int smaller = input[i + 1]; // 2nd element of pair added
 
 		if (larger < smaller)
 			std::swap(larger, smaller);
-
 		pairs.push_back(std::make_pair(larger, smaller));
 	}
 
@@ -83,14 +92,19 @@ static std::vector<int> fordJohnsonSort(const std::vector<int> &input)
 	if (hasOddTail)
 		pendingElements.push_back(oddElement);
 
-	if (!pendingElements.empty())
-		bin(mainChain, pendingElements[0]);
-
-	std::vector<std::size_t> insertionOrder =
-		jacobsthalInsertionOrder(pendingElements.size());
+	// if (!pendingElements.empty())
+	// 	bin(mainChain, pendingElements[0]);
+	std::vector<std::size_t> insertionOrder = jacobsthalInsertionOrder(pendingElements.size());
 
 	for (std::size_t i = 0; i < insertionOrder.size(); ++i)
-		bin(mainChain, pendingElements[insertionOrder[i]]);
+	{
+		std::size_t idx = insertionOrder[i];
+
+		if (idx < pairs.size())
+			binBounded(mainChain, pendingElements[idx], pairs[idx].first);
+		else
+			bin(mainChain, pendingElements[idx]); // odd tail: no winner
+	}
 
 	return mainChain;
 }
@@ -176,8 +190,10 @@ void run(int ac, char **av)
 	std::cout << "Time to process a range of " << ds.size() << " elements with std::deque : " << td << " us" << std::endl;
 }
 
-int main(int ac, char **av)
+int main()
 {
+	int ac = 4;
+	char *av[] = {"program", "3", "4", "1", "2", "8", "9"};
 	run(ac, av);
 	return 0;
 }
