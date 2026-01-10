@@ -6,6 +6,7 @@
 #include <climits>
 #include <utility>
 #include <iomanip>
+#include <sstream>
 
 PmergeMe::PmergeMe() {}
 PmergeMe::PmergeMe(const PmergeMe &) {}
@@ -60,7 +61,7 @@ std::vector<int> PmergeMe::fordJohnsonSort(const std::vector<int> &input)
 	if (input.size() < 2)
 		return input;
 
-	std::vector<std::pair<int, int>> pairs;
+	std::vector<std::pair<int, int> > pairs;
 	bool hasOddTail = input.size() % 2;
 	int oddElement = 0;
 
@@ -127,7 +128,7 @@ std::deque<int> PmergeMe::fjDeq(const std::deque<int> &in)
 	if (in.size() < 2)
 		return in;
 
-	std::vector<std::pair<int, int>> pairs;
+	std::vector<std::pair<int, int> > pairs;
 	bool odd = in.size() % 2;
 	int tail = 0;
 
@@ -178,11 +179,12 @@ bool PmergeMe::parse(int ac, char **av, std::vector<int> &out)
 {
 	for (int i = 1; i < ac; ++i)
 	{
-		char *e = 0;
-		long v = strtol(av[i], &e, 10);
-		if (av[i][0] == '\0' || *e || v <= 0 || v > INT_MAX)
+		std::stringstream ss(av[i]);
+		int v;
+		char extra;
+		if (av[i][0] == '\0' || !(ss >> v) || (ss >> extra) || v <= 0 || v > INT_MAX)
 			return false;
-		out.push_back((int)v);
+		out.push_back(v);
 	}
 	return true;
 }
@@ -195,26 +197,17 @@ void PmergeMe::run(int ac, char **av)
 		std::cerr << "Error" << std::endl;
 		return;
 	}
-	std::vector<int> v(nums.begin(), nums.end());
-	std::deque<int> d(nums.begin(), nums.end());
-	print("Before:", nums);
+	print("\033[35;1mBefore: \033[0m", nums);
 	long long t = now();
+	std::vector<int> v(nums.begin(), nums.end());
 	std::vector<int> vs = fordJohnsonSort(v);
 	double tv = static_cast<double>(now() - t);
 	t = now();
+	std::deque<int> d(nums.begin(), nums.end());
 	std::deque<int> ds = fjDeq(d);
 	double td = static_cast<double>(now() - t);
-	print("After:", vs);
+	print("\033[33;1mAfter: \033[0m", vs);
 	std::cout << std::fixed << std::setprecision(5);
-	std::cout << "Time to process a range of " << vs.size() << " elements with std::vector : " << tv << " us" << std::endl;
-	std::cout << "Time to process a range of " << ds.size() << " elements with std::deque : " << td << " us" << std::endl;
+	std::cout << "\033[34mTime to process a range of " << vs.size() << " elements with std::vector : " << tv << " us\033[0m" << std::endl;
+	std::cout << "\033[36mTime to process a range of " << ds.size() << " elements with std::deque  : \033[36m" << td << " us\033[0m" << std::endl;
 }
-
-// int main()
-// {
-// 	PmergeMe a;
-// 	char *av[] = {"program", "4", "1", "2", "8", "9"};
-// 	int ac = sizeof(av) / sizeof(av[0]);
-// 	a.run(ac, av);
-// 	return 0;
-// }

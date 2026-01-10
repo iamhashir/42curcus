@@ -38,7 +38,9 @@ private:
 		std::cout << label;
 		for (typename C::const_iterator it = c.begin(); it != c.end(); ++it)
 		{
-			std::cout << (it == c.begin() ? " " : " ") << *it;
+			if (it != c.begin())
+				std::cout << " ";
+			std::cout<< *it;
 		}
 		std::cout << std::endl;
 	}

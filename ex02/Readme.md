@@ -1,13 +1,3 @@
-**Evaluation sheet & subject compiled after checking.**
-
-Good. This is the *right* confusion. Now the slow magic—no symbols, no flexing.
-
-You’re 100% right about one thing:
-**the new number must exist somewhere**. You cannot avoid inserting it. Zero magic there.
-
-The only thing you can control is **how many questions you ask before you find its place**.
-
----
 
 ### Step 1 — Comparisons are paid in *levels*, not coins
 
@@ -86,24 +76,3 @@ So yes, the element *will* exist anyway.
 But **when** you insert it decides whether it costs 3 or 4 comparisons.
 
 ---
-
-### Step 5 — One-sentence evaluator answer (memorize this)
-
-> We can’t avoid inserting elements, but by controlling the **order**, we delay when the binary-search depth increases, keeping comparisons minimal as long as mathematically possible.
-
-That’s it.
-No mystery. No cheating. Just timing.
-
-When this clicks, Ford–Johnson stops being “advanced” and becomes annoyingly precise engineering.
-
-
-	
-
-
-
-	   
-
-	   
-
-
-"The whole trick is to check the current level, identify the next power-of-two boundary, see how many elements that level can accommodate, and insert only that many elements at that level."
