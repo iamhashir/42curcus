@@ -31,13 +31,6 @@ void RPN::evaluate(const std::string &expression)
 		if (isValidNumber(token))
 		{
 			int value = atoi(token.c_str());
-
-			if (value > 10 || value < -10)
-			{
-				printError("Error: number out of range.");
-				return;
-			}
-
 			operands.push(value);
 		}
 		else if (token == "+" || token == "-" || token == "*" || token == "/")
