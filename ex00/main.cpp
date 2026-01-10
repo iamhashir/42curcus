@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <cstdlib>
+#include <cctype>
 
 int main(int argc, char **argv)
 {
@@ -48,30 +49,78 @@ int main(int argc, char **argv)
 			continue;
 		}
 
-		// trim spaces
-		if (!date.empty() && date[date.size() - 1] == ' ')
+		// remove leading whitespace on date
+		while (!date.empty() && std::isspace(static_cast<unsigned char>(date[0])))
+			date.erase(0, 1);
+		// remove trailing whitespace on date
+		while (!date.empty() && std::isspace(static_cast<unsigned char>(date[date.size() - 1])))
 			date.erase(date.size() - 1);
-		if (!valueStr.empty() && valueStr[0] == ' ')
+		// removing leading whitespace from value
+		while (!valueStr.empty() && std::isspace(static_cast<unsigned char>(valueStr[0])))
 			valueStr.erase(0, 1);
+		// removing trailing whitespace from value
+		while (!valueStr.empty() && std::isspace(static_cast<unsigned char>(valueStr[valueStr.size() - 1])))
+			valueStr.erase(valueStr.size() - 1);
 		if (!btc.isValidDate(date))
 		{
-			std::cout << "\033[31mError: bad input => \033[0m" << line << std::endl;
+			std::cout << "\033[31mError: bad input => \033[0m"
+					  << date << " (expected format: YYYY-MM-DD)" << std::endl;
+			continue;
+		}
+		if (valueStr.empty())
+		{
+			std::cout << "\033[31mError: bad input => \033[0m"
+					  << "missing value (expected format: YYYY-MM-DD | value)" << std::endl;
 			continue;
 		}
 
-		char *end;
-		double value = std::strtod(valueStr.c_str(), &end);
+		// Validate number format
+		bool validFormat = true;
+		bool hasDecimal = false;
+		for (size_t i = 0; i < valueStr.length(); ++i)
+		{
+			char c = valueStr[i];
+			if (i == 0 && c == '-')
+				continue;
+			if (c == '.' && !hasDecimal)
+			{
+				hasDecimal = true;
+				continue;
+			}
+			if (!std::isdigit(static_cast<unsigned char>(c)))
+			{
+				validFormat = false;
+				break;
+			}
+		}
 
-		if (*end != '\0')
+		if (!validFormat)
 		{
 			std::cout << "\033[31mError: bad input => \033[0m" << line << std::endl;
 			continue;
 		}
-		if (value < 0 || value > 1000)
+
+		double value;
+		char extra;
+
+		std::stringstream ds(valueStr);
+		if (!(ds >> value) || (ds >> extra))
 		{
-			std::cout << "\033[31mError: bad value => \033[0m" << line << std::endl;
+			std::cout << "\033[31mError: bad input => \033[0m" << line << std::endl;
 			continue;
 		}
+
+		if (value < 0)
+		{
+			std::cout << "\033[31mError: not a positive number.\033[0m" << std::endl;
+			continue;
+		}
+		if (value > 1000)
+		{
+			std::cout << "\033[31mError: too large a number.\033[0m" << std::endl;
+			continue;
+		}
+
 		try
 		{
 			double rate = btc.getRateForDate(date);

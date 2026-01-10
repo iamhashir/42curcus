@@ -31,14 +31,21 @@ bool BitcoinExchange::isValidDate(const std::string &date)
 	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
 		return false;
 
-	int year = std::stoi(date.substr(0, 4));
-	int month = std::stoi(date.substr(5, 2));
-	int day = std::stoi(date.substr(8, 2));
+	int year, month, day;
+	char dash1, dash2;
+
+	std::stringstream ss(date);
+	if (!(ss >> year >> dash1 >> month >> dash2 >> day) || !ss.eof())
+		return false;
+	if (dash1 != '-' || dash2 != '-')
+		return false;
 
 	if (month < 1 || month > 12)
 		return false;
 
-	static const int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	static const int daysInMonth[12] =
+		{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
 	int maxDay = daysInMonth[month - 1];
 
 	if (month == 2 && (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)))
@@ -46,6 +53,7 @@ bool BitcoinExchange::isValidDate(const std::string &date)
 
 	return (day >= 1 && day <= maxDay);
 }
+
 bool BitcoinExchange::isValidRate(double rate) {
     return rate >= 0 && rate <= 119324;
 }
