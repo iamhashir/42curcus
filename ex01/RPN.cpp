@@ -47,7 +47,8 @@ void RPN::evaluate(const std::string &expression)
 				printError("Error: not enough operands.");
 				return;
 			}
-			processOperator(token[0]);
+			if (!processOperator(token[0]))
+				return;
 		}
 		else
 		{
@@ -57,16 +58,12 @@ void RPN::evaluate(const std::string &expression)
 	}
 
 	if (operands.size() == 1)
-	{
 		std::cout << operands.top() << std::endl;
-	}
 	else
-	{
 		printError("Error: too many operands.");
-	}
 }
 
-void RPN::processOperator(char op)
+bool RPN::processOperator(char op)
 {
 
 	int b = operands.top(); // get top elements of stack
@@ -90,16 +87,17 @@ void RPN::processOperator(char op)
 		if (b == 0)
 		{
 			printError("Error: division by zero.");
-			return;
+			return false;
 		}
 		result = a / b;
 		break;
 	default:
 		printError("Error: invalid operator.");
-		return;
+		return false;
 	}
 
 	operands.push(result);
+	return true;
 }
 
 bool RPN::isValidNumber(const std::string &str) const

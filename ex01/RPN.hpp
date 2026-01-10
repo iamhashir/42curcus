@@ -22,7 +22,7 @@ class RPN
 		void evaluate(const std::string &expression);
 
 	private:
-		void processOperator(char op);
+		bool processOperator(char op);
 		void printError(const std::string &message);
 		bool isValidNumber(const std::string &str)const;
 
