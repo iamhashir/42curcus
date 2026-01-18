@@ -5,9 +5,13 @@ WP_PATH="/var/www/html"
 
 echo "Checking MariaDB availability..."
 
-php82 -r "
-\$ok = false;
-for (\$i = 0; \$i < 10; \$i++) {
+php82 <<'EOF'
+<?php
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+$ok = false;
+
+for ($i = 0; $i < 10; $i++) {
     try {
         new mysqli(
             getenv('WORDPRESS_DB_HOST'),
@@ -15,23 +19,24 @@ for (\$i = 0; \$i < 10; \$i++) {
             getenv('WORDPRESS_DB_PASSWORD'),
             getenv('WORDPRESS_DB_NAME')
         );
-        \$ok = true;
+        $ok = true;
         break;
-    } catch (Throwable \$e) {
+    } catch (Throwable $e) {
         sleep(2);
     }
 }
-if (!\$ok) {
-    fwrite(STDERR, "MariaDB not reachable\n");
-}
-"
 
-# WordPress install (non-blocking)
+if (!$ok) {
+    fwrite(STDERR, "MariaDB not reachable\n");
+    exit(1);
+}
+EOF
+
 if [ -f "$WP_PATH/wp-config.php" ]; then
-    if ! wp core is-installed --allow-root >/dev/null 2>&1; then
+    if ! php82 /usr/local/bin/wp core is-installed --allow-root >/dev/null 2>&1; then
         echo "Installing WordPress..."
 
-        wp core install \
+        php82 /usr/local/bin/wp core install \
             --url="https://${DOMAIN_NAME}" \
             --title="Inception" \
             --admin_user="${WP_ADMIN_USER}" \
@@ -40,7 +45,7 @@ if [ -f "$WP_PATH/wp-config.php" ]; then
             --skip-email \
             --allow-root
 
-        wp user create \
+        php82 /usr/local/bin/wp user create \
             "${WP_USER}" "${WP_USER_EMAIL}" \
             --user_pass="${WP_USER_PASSWORD}" \
             --role=author \
