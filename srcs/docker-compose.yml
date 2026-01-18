@@ -1,15 +1,26 @@
-version: "3.9"
 services:
   nginx:
     build: ./requirements/nginx
     ports:
-      - "8443:443"
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - inception
+    restart: always
+  wordpress:
+    build: ./requirements/wordpress
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_data:/var/www/html
     networks:
       - inception
     restart: always
   mariadb:
       build: ./requirements/mariadb
-      image: mariadb
       env_file:
         - .env
       volumes:
@@ -17,15 +28,10 @@ services:
       networks:
         - inception
       restart: always
+
 networks:
   inception:
     driver: bridge
-# FIX THIS before submission
 volumes:
   mariadb_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: ~/goinfre/data/mariadb
-      o: bind
-# FIX THIS before submission
+  wordpress_data:

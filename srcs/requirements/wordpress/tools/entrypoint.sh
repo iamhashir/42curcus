@@ -22,27 +22,27 @@ for (\$i = 0; \$i < 10; \$i++) {
     }
 }
 if (!\$ok) {
-    fwrite(STDERR, \"MariaDB not reachable\n\");
+    fwrite(STDERR, "MariaDB not reachable\n");
 }
 "
 
 # WordPress install (non-blocking)
-if [ -f \"$WP_PATH/wp-config.php\" ]; then
+if [ -f "$WP_PATH/wp-config.php" ]; then
     if ! wp core is-installed --allow-root >/dev/null 2>&1; then
         echo "Installing WordPress..."
 
         wp core install \
-            --url=\"https://${DOMAIN_NAME}\" \
-            --title=\"Inception\" \
-            --admin_user=\"${WP_ADMIN_USER}\" \
-            --admin_password=\"${WP_ADMIN_PASSWORD}\" \
-            --admin_email=\"${WP_ADMIN_EMAIL}\" \
+            --url="https://${DOMAIN_NAME}" \
+            --title="Inception" \
+            --admin_user="${WP_ADMIN_USER}" \
+            --admin_password="${WP_ADMIN_PASSWORD}" \
+            --admin_email="${WP_ADMIN_EMAIL}" \
             --skip-email \
-            --allow-root || true
+            --allow-root
 
         wp user create \
-            \"${WP_USER}\" \"${WP_USER_EMAIL}\" \
-            --user_pass=\"${WP_USER_PASSWORD}\" \
+            "${WP_USER}" "${WP_USER_EMAIL}" \
+            --user_pass="${WP_USER_PASSWORD}" \
             --role=author \
             --allow-root || true
     fi
