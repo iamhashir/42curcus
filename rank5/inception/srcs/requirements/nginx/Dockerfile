@@ -6,7 +6,6 @@ RUN apk update && apk add --no-cache nginx openssl
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 # host dest_in_vm
 
-COPY html/ /var/www/html
 COPY ssl/server.crt /etc/nginx/ssl/server.crt
 COPY ssl/server.key /etc/nginx/ssl/server.key
 # host dest_in_vm
