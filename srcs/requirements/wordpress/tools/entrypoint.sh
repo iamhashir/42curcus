@@ -5,9 +5,13 @@ WP_PATH="/var/www/html"
 
 echo "Checking MariaDB availability..."
 
-php82 -r "
-\$ok = false;
-for (\$i = 0; \$i < 10; \$i++) {
+php82 <<'EOF'
+<?php
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+$ok = false;
+
+for ($i = 0; $i < 10; $i++) {
     try {
         new mysqli(
             getenv('WORDPRESS_DB_HOST'),
@@ -15,16 +19,18 @@ for (\$i = 0; \$i < 10; \$i++) {
             getenv('WORDPRESS_DB_PASSWORD'),
             getenv('WORDPRESS_DB_NAME')
         );
-        \$ok = true;
+        $ok = true;
         break;
-    } catch (Throwable \$e) {
+    } catch (Throwable $e) {
         sleep(2);
     }
 }
-if (!\$ok) {
+
+if (!$ok) {
     fwrite(STDERR, "MariaDB not reachable\n");
+    exit(1);
 }
-"
+EOF
 
 # WordPress install (non-blocking)
 if [ -f "$WP_PATH/wp-config.php" ]; then
