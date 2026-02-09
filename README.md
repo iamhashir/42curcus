@@ -13,8 +13,8 @@ I build performance-critical software from first principles: systems where memor
 **Capstone System**
 
 - 🏆 **ft_transcendence (MINA GAMES)**
-- Real-time multiplayer platform
-- Custom frontend runtime (Reactor)
+- Real-time multiplayer gaming platform
+- Reactor Framework Architect (designed & built custom 3kb JSX runtime)
 
 **Training Environment**
 
@@ -32,24 +32,27 @@ I build performance-critical software from first principles: systems where memor
 
 ### Why this project matters
 
-This system combines:
-- Real-time game loops
-- Network synchronization
-- Stateful frontend rendering
-- Backend orchestration
-- Persistent competitive data
+This system integrates:
+- **Real-time games**: Pong (2-player, 4-player, AI modes), Connect 4 with matchmaking
+- **Network synchronization**: WebSocket-based state management with authoritative server
+- **Stateful frontend**: Custom Reactor framework with isolated hook contexts per page
+- **Persistent data**: Player stats, tournaments, match history, achievements
+- **Social features**: Friends system, real-time presence tracking
 
 All under **hard constraints**:
-- No frontend frameworks
-- Deterministic behavior required
-- Latency and desynchronization treated as critical bugs
+- No frontend frameworks (built Reactor from scratch)
+- Deterministic behavior required (no Virtual DOM unpredictability)
+- Desync and latency treated as critical bugs, not edge cases
 
 ### System Architecture (High-Level)
 
 **Frontend**
-- Reactor (custom runtime)
-- Deterministic rendering pipeline
-- Explicit state ownership per game instance
+- Reactor (~3kb custom JSX runtime, React-like API)
+- File-based routing with dynamic params (`pages/user/[id].tsx` → `/user/:id`)
+- Hook system: `useState`, `useEffect`, `useRef`, `useMemo`, `useLocation`
+- Modal system with focus trapping and accessibility
+- Direct DOM manipulation (no Virtual DOM)
+- Page-scoped hook contexts (isolated state per route)
 
 **Backend**
 - Node.js (Fastify)
@@ -65,47 +68,93 @@ All under **hard constraints**:
 - Environment parity for evaluation & defense
 
 ### Engineering Challenges Solved
-- Preventing state divergence between clients
-- Handling reconnects without corrupting game state
-- Synchronizing physics-like systems over unreliable networks
-- Avoiding frontend race conditions without a virtual DOM
+- **State synchronization**: Authoritative server pattern prevents client-side cheating and desync
+- **Reconnection handling**: Graceful reconnects without corrupting active game state
+- **Real-time physics**: Ball/paddle collision over WebSockets with <50ms latency targets
+- **Custom routing**: File-based router with dynamic params and regex matching
+- **Hook isolation**: Per-page hook contexts prevent state leaks during navigation
+- **Modal accessibility**: Focus trapping, scroll lock, keyboard navigation (Escape to close)
+- **No Virtual DOM**: Direct DOM updates with deterministic lifecycle control
 
 **→** [Full ft_transcendence Documentation](./rank6/ft_transcendence)
 
 ---
 
-## ⚛️ Reactor — Custom Frontend Runtime
+## ⚛️ Reactor — Custom Frontend Runtime (React-like, 3kb, Zero Dependencies)
 
-**Reactor is a custom frontend framework built from scratch** to support deterministic, real-time applications where mainstream frameworks become liabilities.
+**Reactor is a lightweight JSX framework built from scratch** with pure DOM manipulation and React-like ergonomics. No React, no Preact, no dependencies.
 
 ### Why Reactor exists
 
-Mainstream frameworks:
-- Hide rendering cost
-- Abstract away timing
-- Optimize for UI flexibility, not determinism
+Mainstream frameworks (React, Vue):
+- Hide rendering costs behind Virtual DOM diffing
+- Abstract timing via schedulers and Fiber reconciliation
+- Optimize for component flexibility, not predictability
 
-For real-time games, this causes:
-- Frame drift
-- Race conditions
-- Unpredictable state updates
+For **real-time multiplayer games**, this causes:
+- **Frame drift**: Unpredictable re-render timing
+- **State races**: Hook execution order ambiguity
+- **Debugging friction**: Opaque reconciliation algorithms
 
-Reactor was designed to **make those costs explicit**.
+Reactor was designed to **make execution deterministic and costs explicit**.
 
 ### What Reactor implements (from first principles)
-- Custom JSX runtime
-- Hook system (`useState`, `useEffect`, `useRef`, `useMemo`)
-- File-based routing
-- Explicit lifecycle control
-- No virtual DOM
+
+**JSX Runtime**
+- Custom factory: `createReactor(tag, props, children)`
+- Fragment support: `<>...</>` (no wrapper elements)
+- Direct DOM creation: `document.createElement()`, no Virtual DOM
+
+**Hook System** (React-compatible API)
+- `useState`: State with functional updates
+- `useEffect`: Side effects with dependency tracking and cleanup
+- `useRef`: Mutable refs persisting across renders
+- `useMemo`: Value memoization with shallow comparison
+- `useLocation`: Reactive URL subscriptions
+
+**File-Based Routing** (no config files)
+- Static routes: `pages/dashboard.tsx` → `/dashboard`
+- Dynamic routes: `pages/user/[id].tsx` → `/user/:id` with regex matching
+- Param injection: Route params passed as component props
+- O(1) static lookup, regex patterns for dynamic routes
+
+**Modal System**
+- Focus trapping (Tab cycles within modal)
+- Scroll lock (`overflow: hidden` on body)
+- Keyboard navigation (Escape to close)
+- Accessibility: `role="dialog"`, `aria-modal="true"`
+
+**Rendering Pipeline**
+```
+1. resetHooks(pageKey)     → Cleanup old effects, set hook context
+2. renderFn()              → Execute component, collect DOM
+3. container.replaceChildren() → Write to DOM
+4. runPendingRefs()        → Assign ref.current values
+5. flushEffects()          → Execute queued effects
+```
 
 ### What Reactor deliberately avoids
-- Implicit re-renders
-- Opaque reconciliation
-- Framework-level magic
+- **Virtual DOM**: No diffing, no reconciliation overhead
+- **Fiber scheduler**: No concurrent rendering, no priority lanes
+- **Implicit behavior**: Every re-render is triggered explicitly via `setState`
+- **Component memoization**: Full page re-render on state change (intentional)
+
+### Architecture Characteristics
+
+**What's fast:**
+- Direct DOM writes (no diff algorithm)
+- Hook lookup: O(1) via index
+- Static route resolution: O(1) hash lookup
+- Bundle size: **~3kb** vs React's ~40kb
+
+**Trade-offs:**
+- Full page re-render on any state change (acceptable for small pages)
+- No component-level optimization (use `useMemo` manually)
+- No server-side rendering
+- Isolated hook contexts per page (prevents cross-page state leaks)
 
 **This is not "reinventing React for fun."**  
-**This is controlling the execution model.**
+**This is controlling the execution model** to ensure deterministic behavior for real-time systems where frame timing and state consistency are non-negotiable.
 
 ---
 
