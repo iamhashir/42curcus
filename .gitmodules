@@ -4,3 +4,6 @@
 [submodule "rank6/ft_transcendence"]
 	path = rank6/ft_transcendence
 	url = https://github.com/minapong/ft_transcendence.git
+[submodule "exams/examRank2"]
+	path = exams/examRank2
+	url = https://github.com/iamhashir/42_examRank2.git
