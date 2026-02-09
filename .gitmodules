@@ -13,3 +13,6 @@
 [submodule "Exams/Exam_Rank_2"]
 	path = Exams/Exam_Rank_2
 	url = https://github.com/iamhashir/42_examRank2.git
+[submodule "Exams/Exam_Rank_5"]
+	path = Exams/Exam_Rank_5
+	url = https://github.com/ihashirr/42_exam_rank_5.git
