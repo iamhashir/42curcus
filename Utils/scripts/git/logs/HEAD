@@ -1,9 +1,0 @@
-0000000000000000000000000000000000000000 2346e084b28dc66e7ff205d5a7232e16d869295c iamhashir <ihashirr@outlook.com> 1753144803 +0400	commit (initial): first commit
-2346e084b28dc66e7ff205d5a7232e16d869295c 0000000000000000000000000000000000000000 iamhashir <ihashirr@outlook.com> 1753144803 +0400	Branch: renamed refs/heads/master to refs/heads/main
-0000000000000000000000000000000000000000 2346e084b28dc66e7ff205d5a7232e16d869295c iamhashir <ihashirr@outlook.com> 1753144803 +0400	Branch: renamed refs/heads/master to refs/heads/main
-2346e084b28dc66e7ff205d5a7232e16d869295c 0000000000000000000000000000000000000000 iamhashir <ihashirr@outlook.com> 1753144848 +0400	Branch: renamed refs/heads/main to refs/heads/main
-2346e084b28dc66e7ff205d5a7232e16d869295c 2346e084b28dc66e7ff205d5a7232e16d869295c iamhashir <ihashirr@outlook.com> 1753144848 +0400	Branch: renamed refs/heads/main to refs/heads/main
-2346e084b28dc66e7ff205d5a7232e16d869295c 0000000000000000000000000000000000000000 iamhashir <ihashirr@outlook.com> 1753144866 +0400	Branch: renamed refs/heads/main to refs/heads/main
-2346e084b28dc66e7ff205d5a7232e16d869295c 2346e084b28dc66e7ff205d5a7232e16d869295c iamhashir <ihashirr@outlook.com> 1753144866 +0400	Branch: renamed refs/heads/main to refs/heads/main
-2346e084b28dc66e7ff205d5a7232e16d869295c 34f492d51655259a67fecb1175ef15622617cd9c iamhashir <ihashirr@outlook.com> 1753215586 +0400	commit: updated refined script with tray cleaning and dark mode
-34f492d51655259a67fecb1175ef15622617cd9c f41ff4929aa017d36e8868fc57592e1492220431 iamhashir <ihashirr@outlook.com> 1753226146 +0400	commit: updating readme and include zshrc
