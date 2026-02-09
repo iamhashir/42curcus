@@ -80,6 +80,25 @@ All under **hard constraints**:
 
 ---
 
+## 👥 Technical Leadership
+
+### Malik Hashir (mhashir)
+**Founder • Product Owner • System Architect • Lead Engineer**
+
+Malik drove the project end-to-end: defining the product vision, system boundaries, and technical direction while actively engineering core components across the stack.
+
+He:
+- Architected the overall system design, aligning real-time constraints across frontend, backend, and networking layers
+- Designed and implemented **Reactor**, a custom JSX runtime and hook system to ensure deterministic frontend behavior
+- Defined the execution model, data flow, and failure handling strategy for real-time multiplayer gameplay
+- Structured the project roadmap, decomposed work into frontend/backend domains, and coordinated delivery
+- Reviewed and validated all major features for correctness, performance, and architectural coherence
+- Contributed directly to backend core logic, real-time game loops, and state synchronization mechanisms
+
+This role combined **technical leadership, architectural ownership, and hands-on systems engineering**—not coordination alone.
+
+---
+
 ## ⚛️ Reactor — Custom Frontend Runtime (React-like, 3kb, Zero Dependencies)
 
 **Reactor is a lightweight JSX framework built from scratch** with pure DOM manipulation and React-like ergonomics. No React, no Preact, no dependencies.
