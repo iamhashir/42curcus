@@ -7,3 +7,9 @@
 [submodule "exams/examRank2"]
 	path = exams/examRank2
 	url = https://github.com/iamhashir/42_examRank2.git
+[submodule "Exams/examRank2"]
+	path = Exams/examRank2
+	url = https://github.com/iamhashir/42_examRank2.git
+[submodule "Exams/Exam_Rank_2"]
+	path = Exams/Exam_Rank_2
+	url = https://github.com/iamhashir/42_examRank2.git
