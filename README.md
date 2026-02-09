@@ -76,7 +76,7 @@ All under **hard constraints**:
 - **Modal accessibility**: Focus trapping, scroll lock, keyboard navigation (Escape to close)
 - **No Virtual DOM**: Direct DOM updates with deterministic lifecycle control
 
-**→** [Full ft_transcendence Documentation](./rank6/ft_transcendence)
+**→** [Full ft_transcendence Documentation](./rank6/ft_transcendence/README.md)
 
 ---
 
@@ -323,10 +323,6 @@ rank6    → distributed real-time system
 
 - **[Rank 2 Exam](./rank2_exam)**
 - **[Rank 5 Exam](./rank5_exam)**
-
-## 🛠 Utils
-
-- **[Utils](./Utils)**: Various utilities, scripts, and evaluation sheets used throughout the curriculum.
 
 ---
 
