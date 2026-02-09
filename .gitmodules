@@ -1,3 +1,6 @@
 [submodule "rank5/ft_irc"]
 	path = rank5/ft_irc
 	url = https://github.com/ihashirr/IRC.git
+[submodule "rank6/ft_transcendence"]
+	path = rank6/ft_transcendence
+	url = https://github.com/minapong/ft_transcendence.git
