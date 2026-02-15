@@ -9,7 +9,7 @@ I work on systems where **latency**, **memory layout**, and **execution order** 
 
 ---
 
-## 🏆 Flagship System: [ft_transcendence](rank6/ft_transcendence/Readme.md)
+## 🏆 Flagship System: [ft_transcendence](https://github.com/minapong/ft_transcendence/blob/198b26312e47a2c547f6ca319b46854e74a634e1/Readme.md) 
 **Real-time distributed multiplayer gaming platform.**
 
 *   **Roles:** Product Owner · Project Manager · Technical Architect (Team of 4)
@@ -31,6 +31,11 @@ Reactor enforces:
 * **No reconciliation phase**
 * **Explicit state transitions**
 * **Synchronous render → commit → effect lifecycle**
+
+#### 📄 Reactor Documentation
+
+* [Reactor Features](https://github.com/minapong/ft_transcendence/blob/198b26312e47a2c547f6ca319b46854e74a634e1/Frontend/src/core/Reactor/docs/reactor_features.md)
+* [REACTOR OVERVIEW](https://github.com/minapong/ft_transcendence/blob/198b26312e47a2c547f6ca319b46854e74a634e1/Frontend/src/core/Reactor/docs/overview.md)
 
 
 Each state update results in a full page re-render by design. Predictability was chosen over partial diff optimization. Pages are intentionally small; cost is bounded.
