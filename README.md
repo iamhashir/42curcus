@@ -9,7 +9,7 @@ I work on systems where **latency**, **memory layout**, and **execution order** 
 
 ---
 
-## 🏆 Flagship System: [ft_transcendence](./rank6/ft_transcendence)
+## 🏆 Flagship System: [ft_transcendence](rank6/ft_transcendence/Readme.md)
 **Real-time distributed multiplayer gaming platform.**
 
 *   **Roles:** Product Owner · Project Manager · Technical Architect (Team of 4)
